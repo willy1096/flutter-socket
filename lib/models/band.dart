@@ -1,3 +1,5 @@
+
+
 class Band {
 
   String id;
@@ -16,5 +18,7 @@ class Band {
       name : obj.containsKey('name') ? obj['name'] : 'no-name',
       votes: obj.containsKey('votes') ? obj['votes'] : 'no-votes'
     );
+  
+
 
 }

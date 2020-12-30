@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
-enum ServerStatus{
+enum ServerStatus {
   Online,
   Offline,
   Connecting
 }
 
-class SocketService with ChangeNotifier{
+
+class SocketService with ChangeNotifier {
 
   ServerStatus _serverStatus = ServerStatus.Connecting;
   IO.Socket _socket;
@@ -22,44 +24,24 @@ class SocketService with ChangeNotifier{
     this._initConfig();
   }
 
-  void _initConfig(){
-
-    this._socket = IO.io('http://localhost:3000/', <String, dynamic>{
-      'timeout': 1000,
-      'reconnectDelay': 3000,
+  void _initConfig() {
+    
+    // Dart client
+    this._socket = IO.io('https://flutter-server-ios-android.herokuapp.com/', {
       'transports': ['websocket'],
-      'upgrade': false,
-      'autoConnect': true,
+      'autoConnect': true
     });
 
-   
-
-    this._socket.onConnect((_){
-       print('connect');
-       this._serverStatus = ServerStatus.Online;
-       notifyListeners();
-    });
-    
-    socket.onConnectError((data) {
-      print("socket connect exception :$data");
+    this._socket.on('connect', (_) {
+      this._serverStatus = ServerStatus.Online;
+      notifyListeners();
     });
 
-    socket.onConnectTimeout((data) {
-      print("onConnectTimeout: $data");
-    });
-    socket.onReconnectError((data) {
-      print("onReconnectError: $data");
-    });
-    
-    this._socket.onDisconnect((_) {
-      print('disconnect');
+    this._socket.on('disconnect', (_) {
       this._serverStatus = ServerStatus.Offline;
       notifyListeners();
     });
 
-
-    
-   
-  } 
+  }
 
 }

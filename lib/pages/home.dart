@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('BandNames', style: TextStyle( color: Colors.black87 ) ),
+        title: Text('Socket.io', style: TextStyle( color: Colors.black87 ) ),
         backgroundColor: Colors.white,
         elevation: 1,
         actions: <Widget>[
@@ -66,8 +66,8 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: <Widget>[
 
-          // _showGraph(),
-          Text('Server Status: ${socketService.serverStatus}'),
+          _showGraph(),
+
           Expanded(
             child: ListView.builder(
               itemCount: bands.length,
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
         color: Colors.red,
         child: Align(
           alignment: Alignment.centerLeft,
-          child: Text('Delete Band', style: TextStyle( color: Colors.white) ),
+          child: Text('Delete Lenguaje', style: TextStyle( color: Colors.white) ),
         )
       ),
       child: ListTile(
@@ -186,10 +186,10 @@ class _HomePageState extends State<HomePage> {
     final List<Color> colorList = [
       Colors.blue[50],
       Colors.blue[200],
-      Colors.pink[50],
-      Colors.pink[200],
-      Colors.yellow[50],
-      Colors.yellow[200],
+      Colors.deepPurple,
+      Colors.deepPurpleAccent,
+      Colors.orangeAccent,
+      Colors.orange,
     ];
 
     return Container(
@@ -197,7 +197,7 @@ class _HomePageState extends State<HomePage> {
       width: double.infinity,
       height: 200,
       child: PieChart(
-          dataMap: dataMap!=null?dataMap:[{'name':20.0}],
+          dataMap: dataMap!=null?dataMap:[{'votes':20.0}],
           animationDuration: Duration(milliseconds: 800),
           showChartValuesInPercentage: true,
           showChartValues: true,
